@@ -1,0 +1,10 @@
+
+ ,-----.                 ,--.
+'  .--./,--.--. ,---.  ,-|  |,--,--,--. ,--,--.,--.--. ,---.
+|  |    |  .--'| .-. :' .-. ||        |' ,-.  ||  .--'| .-. |
+'  '--'\|  |   \   --.\ `-' ||  |  |  |\ '-'  ||  |   ' '-' '
+ `-----'`--'    `----' `---' `--`--`--' `--`--'`--'   .`-  /
+                                                      `---'
+Developed by Nikhil Gorde for Credmarg
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
