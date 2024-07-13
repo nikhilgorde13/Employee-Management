@@ -34,10 +34,10 @@ export default function EmployeeDataGrid() {
         fetchAndSetEmployees();
     }, []);
     const fetchAndSetEmployees = async () => {
-        const response = await fetch("http://localhost:8080/api/v1/management/employee/all");
-        const data = response.json();
-        setEmployees(data as unknown as Employee[]);
-        setFiltredEmployee(data as unknown as Employee[])
+       await fetch("http://localhost:8080/api/v1/management/employee/all").then((response) => response.json()).then((data)=>{
+            setEmployees(data as unknown as Employee[]);
+           setFiltredEmployee(data as unknown as Employee[])
+        })
     }
     const columns = [
         {field: 'id', headerName: 'ID', width: 150},
@@ -65,10 +65,9 @@ export default function EmployeeDataGrid() {
         }
     return (
         <Box>
-
           <Box sx={{display:"flex",justifyContent:"flex-end"}}>
-              <AddVendor />
-              <AddEmployee/>
+              <AddVendor/>
+              <AddEmployee callback={fetchAndSetEmployees}/>
           <TextField size="small"
           onChange={(e)=>filterEmployee(e.target.value)}
           />

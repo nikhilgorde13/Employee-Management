@@ -23,6 +23,9 @@ export const AddVendor =()=>
                 upi: upi,
                 createdBy:"developer"
             })
+        }).then(()=> {
+            alert("Vendor added successfully.");
+            setOpen(false)
         })
     }
     return(

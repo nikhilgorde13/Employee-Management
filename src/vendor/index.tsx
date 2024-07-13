@@ -1,6 +1,8 @@
-import {Card, CardActions, CardContent, CardHeader, Divider, Typography,} from '@mui/material';
+import {Card, CardActions, CardContent, CardHeader, Divider, Tooltip, Typography,} from '@mui/material';
 import {useEffect, useState} from "react";
-
+import SendIcon from '@mui/icons-material/Send';
+import IconButton from "@mui/material/IconButton";
+import {sendEmail} from "../email/api/sendEmail.ts";
 export interface VendorDetails {
     id: string,
     name: string,
@@ -21,9 +23,9 @@ const VendorCard = () => {
         fetchAndSetVendor();
     }, []);
     const fetchAndSetVendor =async () => {
-        const response = await fetch("http://localhost:8080/api/v1/management/vendor/all");
-        const data = response.json();
-        setVendors(data as unknown as VendorDetails[]);
+        await fetch("http://localhost:8080/api/v1/management/vendor/all").then((response) => response.json()).then((data)=>{
+            setVendors(data as unknown as VendorDetails[]);
+        });
     }
     // const {
     //     id,
@@ -43,14 +45,14 @@ const VendorCard = () => {
         {vendors.length > 0 && vendors.map((vendor: VendorDetails) => (
             <Card sx={{m: 2}}>
                 <CardHeader sx={{bgcolor: "#EFEEEF"}}
-                            title={<><Typography>Name:{vendor.name}</Typography> <Typography display="flex"> <Typography color="text.secondary">Email:</Typography>
+                            title={<Typography display="flex" ><Typography>Name:{vendor.name}</Typography> <Typography display="flex" ml={2}><Typography >Email:</Typography>
                                 <Typography>{vendor.email}</Typography></Typography>
-                                <Typography display="flex"> <Typography color="text.secondary">Phone:</Typography></Typography></>}/>
+                                <Typography display="flex" ml={2}> <Typography >Phone:</Typography> <Typography>{vendor.phone}</Typography></Typography></Typography>}
+                            action={<IconButton onClick={()=>sendEmail(vendor.upi)} sx={{bgcolor:"#8293ee"}}><Tooltip title={"send mail"}><SendIcon/></Tooltip></IconButton>}
+                />
                 <CardContent sx={{display: "flex", justifyContent: "space-between"}}>
-                    <Typography>{vendor.phone}</Typography>
                     <Typography display="flex"><Typography color="text.secondary">Address:</Typography>
                         <Typography>{vendor.address}</Typography></Typography>
-
                     <Typography display="flex"> <Typography color="text.secondary">UPI:</Typography>
                         <Typography>{vendor.upi}</Typography></Typography>
                     <Typography display="flex"><Typography color="text.secondary">Bank Account Number:</Typography>
@@ -67,7 +69,6 @@ const VendorCard = () => {
                 </CardActions>
             </Card>
             ))
-
         }
         </>
     );
