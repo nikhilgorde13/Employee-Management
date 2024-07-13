@@ -10,14 +10,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/management/email")
+@CrossOrigin
 public class EmailController {
     private final EmailService service;
 
     public EmailController(EmailService service) {
         this.service = service;
     }
-
-
+    
     @GetMapping("all")
     public ResponseEntity<List<Email>> getAllEmails() {
         return ResponseEntity.ok(service.getAllEmails());
